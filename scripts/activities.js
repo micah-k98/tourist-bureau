@@ -125,6 +125,7 @@ window.onload = function()
     showCategoryList();
 }
 
+// this function will display the list of categories right from the start
 function showCategoryList()
 {
     const categoryList = document.getElementById("categoryList");
@@ -137,20 +138,70 @@ function showCategoryList()
     }
 }
 
+
+
+// all functions below will only load if there are any changes or a category was selected
+
 function categoryChanged()  
 {
     const categoryValue = document.getElementById("categoryList").value;
 
     const selectedCategory = getSelectedCategory(categoryValue);
 
+    filterActivities(selectedCategory);
 }
 
+// this function will return the category name which will be used to determine the list of activities
 function getSelectedCategory(categoryValue)
 {
     const categoryList = getCategories();
 
     for (let category of categoryList)
     {
-        if (category.value == categoryValue) return category;
+        if (category.value == categoryValue) return category.name;
     }
 }
+
+// this function will decide the activities that should show on the page based on the selected category
+function filterActivities(selectedCategory)
+{
+    const allActivities = getActivities();
+    const activities = [];
+    
+    for (let activity of allActivities)
+    {
+        if (activity.category == selectedCategory)
+        {
+            activities.push(activity);
+        }
+    }
+
+    showActivityList(activities);
+}
+
+// this function is responsible for displaying the list of activities based on the values from filterActivities
+function showActivityList(activities)
+{
+    const activityList = document.getElementById("activityList");
+
+    if (activityList.options.length > 1)
+    {
+        console.log(activityList.options.length);
+        for (let i = activityList.options.length; i > 0 ; i--)
+        {
+            activityList.options[i] = null;
+            console.log(activityList.options[i]);
+        }
+    }
+
+    for (let activity of activities)
+    {
+        const option = new Option (activity.name, activity.id)
+        activityList.appendChild(option);
+    }
+}
+
+
+
+
+
