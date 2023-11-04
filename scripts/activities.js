@@ -120,9 +120,10 @@ function getActivities()
 
 window.onload = function()
 {
-    document.getElementById("categoryList").onchange = categoryChanged;
-
     showCategoryList();
+
+    document.getElementById("categoryList").onchange = categoryChanged;
+    document.getElementById("activityList").onchange = activityChanged;
 }
 
 // this function will display the list of categories right from the start
@@ -149,6 +150,10 @@ function categoryChanged()
     const selectedCategory = getSelectedCategory(categoryValue);
 
     filterActivities(selectedCategory);
+    
+    // needed to call this function so that the details section will be hidden when the category suddenly changed
+    activityChanged();
+    
 }
 
 // this function will return the category name which will be used to determine the list of activities
@@ -190,7 +195,6 @@ function showActivityList(activities)
         for (let i = activityList.options.length; i > 0 ; i--)
         {
             activityList.options[i] = null;
-            console.log(activityList.options[i]);
         }
     }
 
@@ -201,7 +205,42 @@ function showActivityList(activities)
     }
 }
 
+// this function will only load when an activity was selected
+function activityChanged()
+{
+    const activityValue = document.getElementById("activityList").value;
+    
+    const selectedActivity = getSelectedActivity(activityValue);
 
+    showActivityDetails(selectedActivity);
+}
 
+// gets the whole object/details of the selected actvity
+function getSelectedActivity(activityValue)
+{
+    const activityList = getActivities();
 
+    for (let activity of activityList)
+    {
+        if (activity.id == activityValue) return activity;
+    }
+}
+
+// displays the details of the said activity
+function showActivityDetails(selectedActivity)
+{
+    if (selectedActivity == undefined) document.getElementById("activityDetails").hidden = true;
+    else
+    {
+        document.getElementById("activityDetails").hidden = false;
+        document.getElementById("category").innerText = selectedActivity.category;
+        document.getElementById("id").innerText = selectedActivity.id;
+        document.getElementById("name").innerText = selectedActivity.name;
+        document.getElementById("description").innerText = selectedActivity.description;
+        document.getElementById("location").innerText = selectedActivity.location;
+        document.getElementById("price").innerText = selectedActivity.price;
+    }
+
+    
+}
 
