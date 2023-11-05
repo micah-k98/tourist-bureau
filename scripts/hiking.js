@@ -36,7 +36,7 @@ function getHikingTrails()
 window.onload = function()
 {
    trailList();
-   
+   document.getElementById("trailList").onchange = trailNameChanged;
 }
 
 // will load the list of trails right away when the page loads
@@ -49,6 +49,27 @@ function trailList()
    {
       const option = new Option(item.name, item.id);
       selectTrail.appendChild(option);
+   }
+}
+
+function trailNameChanged()
+{
+   const trailValue = document.getElementById("trailList").value;
+   const trailInfo = getHikingTrails();
+   const selectedTrail = getSelectedOption(trailInfo, trailValue);
+
+   showTrailDetails(selectedTrail);
+}
+
+function showTrailDetails(selectedTrail)
+{
+   if (selectedTrail != undefined)
+   {
+      document.getElementById("trailDetails").hidden = false;
+   }
+   else 
+   {
+      document.getElementById("trailDetails").hidden = true;
    }
 }
 
