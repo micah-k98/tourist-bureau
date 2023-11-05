@@ -4,15 +4,15 @@ function getCategories()
 {
     return [
         {name: "Adventures",
-         value: "1"}, 
+         id: "1"}, 
         {name: "Arts & Crafts",
-         value: "2"}, 
+         id: "2"}, 
         {name: "Museums",
-         value: "3"}, 
+         id: "3"}, 
         {name: "Wine Tastings",
-         value: "4"}, 
+         id: "4"}, 
         {name: "Other",
-         value: "5"}
+         id: "5"}
     ];
 }
 
@@ -146,24 +146,22 @@ function showCategoryList()
 function categoryChanged()  
 {
     const categoryValue = document.getElementById("categoryList").value;
+    const categoryList = getCategories();
+    const selectedCategory = getSelectedOption(categoryList, categoryValue);
 
-    const selectedCategory = getSelectedCategory(categoryValue);
-
-    filterActivities(selectedCategory);
+    filterActivities(selectedCategory.name);
     
     // needed to call this function so that the details section will be hidden when the category suddenly changed
     activityChanged();
     
 }
 
-// this function will return the category name which will be used to determine the list of activities
-function getSelectedCategory(categoryValue)
+// gets the whole object/details of the selected category or activity
+function getSelectedOption(list, value)
 {
-    const categoryList = getCategories();
-
-    for (let category of categoryList)
+    for (let item of list)
     {
-        if (category.value == categoryValue) return category.name;
+        if (item.id == value) return item;
     }
 }
 
@@ -209,21 +207,10 @@ function showActivityList(activities)
 function activityChanged()
 {
     const activityValue = document.getElementById("activityList").value;
-    
-    const selectedActivity = getSelectedActivity(activityValue);
+    const activityList = getActivities();
+    const selectedActivity = getSelectedOption(activityList, activityValue);
 
     showActivityDetails(selectedActivity);
-}
-
-// gets the whole object/details of the selected actvity
-function getSelectedActivity(activityValue)
-{
-    const activityList = getActivities();
-
-    for (let activity of activityList)
-    {
-        if (activity.id == activityValue) return activity;
-    }
 }
 
 // displays the details of the said activity
