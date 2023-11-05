@@ -52,6 +52,9 @@ function trailList()
    }
 }
 
+
+// all functions below will only load when there's a selected trail
+
 function trailNameChanged()
 {
    const trailValue = document.getElementById("trailList").value;
@@ -61,6 +64,7 @@ function trailNameChanged()
    isUndefined(selectedTrail);   
 }
 
+// verifies if there's a trail selected or not
 function isUndefined(selectedTrail)
 {
    if (selectedTrail == undefined)
