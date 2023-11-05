@@ -124,7 +124,8 @@ window.onload = function()
 
     document.getElementById("categoryList").onchange = categoryChanged;
     document.getElementById("activityList").onchange = activityChanged;
-    // document.getElementById("theForm").onsubmit = ;
+    document.getElementById("theForm").onsubmit = purchaseButtonClicked;
+    document.getElementById("resetButton").onclick = resetForm;
 }
 
 // this function will display the list of categories right from the start
@@ -226,7 +227,7 @@ function showActivityDetails(selectedActivity)
     if (selectedActivity == undefined) 
     {
         document.getElementById("activityDetails").hidden = true;
-        document.getElementById("theForm").hidden = true;
+        hideThis();
     }
     else
     {
@@ -238,20 +239,56 @@ function showActivityDetails(selectedActivity)
         document.getElementById("location").innerText = selectedActivity.location;
         document.getElementById("price").innerText = selectedActivity.price;
 
-        showForm(selectedActivity.price);
+        showForm(selectedActivity);
     }
 }
 
-function showForm(price)
+// shows the form for purchasing e-tickets depending on the price
+function showForm(selectedActivity)
 {
-    if (price > 0)
+    if (selectedActivity.price > 0)
     {
+        resetForm();
         document.getElementById("theForm").hidden = false;
+        document.getElementById("resetButton").hidden = false;
     }
-    else
-    {
-        document.getElementById("theForm").hidden = true;
-    }
+    else hideThis();   
+}
+
+// will only load when the purchase button was clicked
+function purchaseButtonClicked(event)
+{
+    event.preventDefault();
+    document.getElementById("purchaseMessage").hidden = false;
+
+    const activityValue = document.getElementById("activityList").value;
+    const activityList = getActivities();
+    const selectedActivity = getSelectedOption(activityList, activityValue);
+
+    const ticketsQuantity = document.getElementById("ticketsQuantity").value;
+    let amount = (+ticketsQuantity * selectedActivity.price).toFixed(2);
+    document.getElementById("amount").innerText = amount;
+    if (ticketsQuantity == "1")  document.getElementById("totalTickets").innerText = ticketsQuantity + " ticket";
+    else  document.getElementById("totalTickets").innerText = ticketsQuantity + " tickets";
+    document.getElementById("adventureName").innerText = selectedActivity.name;
+    const email = document.getElementById("email").value;
+    document.getElementById("emailEntered").innerText = email;
+}
+
+
+function resetForm()
+{
+    document.getElementById("purchaseMessage").hidden = true;
+    document.getElementById("ticketsQuantity").value = "";
+    document.getElementById("cardNumber").value = "";
+    document.getElementById("email").value = "";
+}
+
+function hideThis()
+{
+    document.getElementById("theForm").hidden = true;
+    document.getElementById("resetButton").hidden = true;
+    document.getElementById("purchaseMessage").hidden = true;
 }
 
 
