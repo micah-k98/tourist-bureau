@@ -134,7 +134,7 @@ function showCategoryList()
 
     for (let category of categories)
     {
-        const option = new Option(category.name, category.value);
+        const option = new Option(category.name, category.id);
         categoryList.appendChild(option);
     }
 }
@@ -146,14 +146,18 @@ function showCategoryList()
 function categoryChanged()  
 {
     const categoryValue = document.getElementById("categoryList").value;
+
+    // if else statement to keep the activity section hidden if there's no selected category
+    if (categoryValue != "0") document.getElementById("selectActivity").hidden = false;
+    else document.getElementById("selectActivity").hidden = true;
+
     const categoryList = getCategories();
     const selectedCategory = getSelectedOption(categoryList, categoryValue);
 
-    filterActivities(selectedCategory.name);
+    filterActivities(selectedCategory);
     
     // needed to call this function so that the details section will be hidden when the category suddenly changed
     activityChanged();
-    
 }
 
 // gets the whole object/details of the selected category or activity
@@ -170,12 +174,15 @@ function filterActivities(selectedCategory)
 {
     const allActivities = getActivities();
     const activities = [];
-    
-    for (let activity of allActivities)
+
+    if (selectedCategory != undefined) // this is needed to prevent error when not selecting any category 
     {
-        if (activity.category == selectedCategory)
+        for (let activity of allActivities)
         {
-            activities.push(activity);
+            if (activity.category == selectedCategory.name)
+            {
+                activities.push(activity);
+            }
         }
     }
 
@@ -189,7 +196,6 @@ function showActivityList(activities)
 
     if (activityList.options.length > 1)
     {
-        console.log(activityList.options.length);
         for (let i = activityList.options.length; i > 0 ; i--)
         {
             activityList.options[i] = null;
