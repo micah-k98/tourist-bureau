@@ -50,7 +50,7 @@
                 </select>
             </section>
 
-            <section class="card bg-secondary mb-3" id="activityDetails" hidden>
+            <section class="card bg-secondary mb-5" id="activityDetails" hidden>
                 <strong class="card-header text-center fs-5">Activity Details</strong>
                 <div class="row card-body g-3 mt-0 ps-4 pe-4">
                     <h4 class="card-title text-center" id="name"></h4>
@@ -61,6 +61,25 @@
                     <div>Price: $<span id="price"></span></div>
                 </div>
             </section>
+
+            <form action="" id="theForm" class="m-1">
+                <div class="mt-2 form-group">
+                    <label for="ticketsQuantity" class="form-label">Number of Tickets:</label>
+                    <input type="number" id="ticketsQuantity" class="form-control" required>
+                </div>
+                <div class="mt-2 form-group">
+                    <label for="cardNumber" class="form-label">Credit Card Number:</label>
+                    <input type="text" id="cardNumber" class="form-control" maxlength="16" required>
+                </div>
+                <div class="mt-2 form-group">
+                    <label for="email" class="form-label">Email Address:</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+                <div class="mt-2">
+                    <button id="purchaseButton" class="btn btn-primary col-3 p-2 m-3">Purchase</button>
+                    <button id="resetButton" class="btn btn-warning col-3 p-2 m-3">Reset</button>
+                </div>
+            </form>
         </main>
         
         <footer class="footer-container">
