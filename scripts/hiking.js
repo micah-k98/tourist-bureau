@@ -63,13 +63,18 @@ function trailNameChanged()
 
 function showTrailDetails(selectedTrail)
 {
-   if (selectedTrail != undefined)
+   if (selectedTrail == undefined)
    {
-      document.getElementById("trailDetails").hidden = false;
+      document.getElementById("trailDetails").hidden = true;
+
    }
    else 
    {
-      document.getElementById("trailDetails").hidden = true;
+      document.getElementById("trailDetails").hidden = false;
+      document.getElementById("name").innerText = selectedTrail.name;
+      document.getElementById("description").innerText = selectedTrail.description;
+      document.getElementById("length").innerText = selectedTrail.length;
+      document.getElementById("difficulty").innerText = selectedTrail.difficulty;
    }
 }
 
