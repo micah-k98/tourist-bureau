@@ -35,5 +35,20 @@ function getHikingTrails()
 
 window.onload = function()
 {
-
+   trailList();
+   
 }
+
+// will load the list of trails right away when the page loads
+function trailList()
+{
+   const selectTrail = document.getElementById("trailList");
+   const trailInfo = getHikingTrails();
+
+   for (let item of trailInfo)
+   {
+      const option = new Option(item.name, item.id);
+      selectTrail.appendChild(option);
+   }
+}
+
