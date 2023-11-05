@@ -58,23 +58,38 @@ function trailNameChanged()
    const trailInfo = getHikingTrails();
    const selectedTrail = getSelectedOption(trailInfo, trailValue);
 
-   showTrailDetails(selectedTrail);
+   isUndefined(selectedTrail);   
 }
 
-function showTrailDetails(selectedTrail)
+function isUndefined(selectedTrail)
 {
    if (selectedTrail == undefined)
    {
       document.getElementById("trailDetails").hidden = true;
-
+      document.getElementById("trailPhotos").hidden = true;
    }
    else 
    {
-      document.getElementById("trailDetails").hidden = false;
-      document.getElementById("name").innerText = selectedTrail.name;
-      document.getElementById("description").innerText = selectedTrail.description;
-      document.getElementById("length").innerText = selectedTrail.length;
-      document.getElementById("difficulty").innerText = selectedTrail.difficulty;
+      showTrailDetails(selectedTrail);
+      showImages(selectedTrail);
    }
 }
 
+function showTrailDetails(selectedTrail)
+{
+   document.getElementById("trailDetails").hidden = false;
+   document.getElementById("name").innerText = selectedTrail.name;
+   document.getElementById("description").innerText = selectedTrail.description;
+   document.getElementById("length").innerText = selectedTrail.length;
+   document.getElementById("difficulty").innerText = selectedTrail.difficulty;
+}
+
+function showImages(selectedTrail)
+{
+   document.getElementById("trailPhotos").hidden = false;
+   document.getElementById("trailImage").src = "images/" + selectedTrail.scenicImage;
+   document.getElementById("trailImage").alt = selectedTrail.name;
+   document.getElementById("trailMap").src = "images/" + selectedTrail.trailMapImage;
+   document.getElementById("trailMap").alt = selectedTrail.name;
+
+}
