@@ -124,6 +124,7 @@ window.onload = function()
 
     document.getElementById("categoryList").onchange = categoryChanged;
     document.getElementById("activityList").onchange = activityChanged;
+    // document.getElementById("theForm").onsubmit = ;
 }
 
 // this function will display the list of categories right from the start
@@ -222,7 +223,11 @@ function activityChanged()
 // displays the details of the said activity
 function showActivityDetails(selectedActivity)
 {
-    if (selectedActivity == undefined) document.getElementById("activityDetails").hidden = true;
+    if (selectedActivity == undefined) 
+    {
+        document.getElementById("activityDetails").hidden = true;
+        document.getElementById("theForm").hidden = true;
+    }
     else
     {
         document.getElementById("activityDetails").hidden = false;
@@ -232,8 +237,21 @@ function showActivityDetails(selectedActivity)
         document.getElementById("description").innerText = selectedActivity.description;
         document.getElementById("location").innerText = selectedActivity.location;
         document.getElementById("price").innerText = selectedActivity.price;
-    }
 
-    
+        showForm(selectedActivity.price);
+    }
 }
+
+function showForm(price)
+{
+    if (price > 0)
+    {
+        document.getElementById("theForm").hidden = false;
+    }
+    else
+    {
+        document.getElementById("theForm").hidden = true;
+    }
+}
+
 
