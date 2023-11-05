@@ -233,8 +233,8 @@ function showActivityDetails(selectedActivity)
     {
         document.getElementById("activityDetails").hidden = false;
         document.getElementById("name").innerText = selectedActivity.name;
-        // document.getElementById("category").innerText = selectedActivity.category;
-        // document.getElementById("id").innerText = selectedActivity.id;
+        document.getElementById("category").innerText = selectedActivity.category;
+        document.getElementById("id").innerText = selectedActivity.id;
         document.getElementById("description").innerText = selectedActivity.description;
         document.getElementById("location").innerText = selectedActivity.location;
         document.getElementById("price").innerText = selectedActivity.price;
